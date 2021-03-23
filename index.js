@@ -64,15 +64,11 @@ Use getFinals to do the following:
 hint - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(item) {
-   const finalTeams = fifaData.filter(function(item) {
+function getFinals(data) {
+   const finalTeams = data.filter(function(item) {
 return item.Stage === 'Final' 
-   }).map (function(item) {
-       return item['Home Team Name']
-   }).map (function(item){
-       return item['Away Team Name']
-   });
-   console.log(finalTeams);
+   })
+   return finalTeams;
 }
 
 
@@ -84,7 +80,7 @@ Use the higher-order function called getYears to do the following:
 3. Return an array called years containing all of the years in the getFinals data set*/
 
 function getYears(array, getFinalsCB) {
-    let years = fifaData(function(item){
+    const years = fifaData(function(item){
         return item.Years
     });
     console.log(years);
@@ -99,9 +95,12 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-    /* code here */
+function getWinners(data, getFinalsCB) {
+    return getFinalsCB(data).map(function(item) {
+        return item['Home Team Goals'] > item['Away Team Goals'] ? item['Home Team Name'] : item['Away Team Name'];
+    })
 }
+console.log('task 4', getWinners(fifaData, getFinals));
 
 
 
