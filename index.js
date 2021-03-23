@@ -7,9 +7,7 @@ Practice accessing data by console.log-ing the following pieces of data note, yo
 
 //(a) Home Team name for 2014 world cup final
 const homeTeamName = fifaData.filter(function(item ){
-    return item.Year === 2014
-}).map (function(item) {
-    return item.Stage === 'Final'
+    return item.Year === 2014 && item.Stage === 'Final'
 }).map (function(item) {
     return item['Home Team Name']
 });
@@ -130,8 +128,11 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
+function getAverageGoals(getFinalsCB) {
+   const averageTeamGoals = getFinalsCB.reduce(function(item) {
+       return acc + item['Home Team Goals'] + item['Away Team Goals']
+   }, 0);
+   return (averageTeamGoals / getFinalsCB.length).toFixed(2);
 }
 
 
